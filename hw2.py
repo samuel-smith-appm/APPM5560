@@ -8,7 +8,7 @@ from time import time
 ###                                        Problem 1                                             ###
 ####################################################################################################
 
-p1 = True
+p1 = False
 if p1:
     alpha = 3
     n_list = [100, 1000, 100000]
@@ -45,7 +45,7 @@ if p1:
 ####################################################################################################
 ###                                        Problem 2                                             ###
 ####################################################################################################
-p2 = True
+p2 = False
 if p2:
     n_list = [100, 1000, 100000]
     f = lambda x: x*np.exp(-(x**2)/2)
@@ -124,6 +124,7 @@ if p3:
 
 
 p4 = True
+
 if p4:
     def accept_reject_standard(pdf, M, L):
         """
@@ -250,3 +251,41 @@ if p4:
     print(run_count_standard)
     print(run_count_mod)
 
+
+####################################################################################################
+###                                        Problem 6                                             ###
+####################################################################################################
+
+p6 = True
+if p6:
+    N = 10000
+    res = np.zeros(N)
+    for j in range(N):
+        bern = np.round(np.random.rand())
+        u = np.random.rand()
+        if bern:
+            res[j] = np.sqrt(u)
+        else:
+            res[j] = 1 - np.sqrt(1-u)
+    
+    f_theor = np.ones(100)
+    xran = np.linspace(0,1, 100)
+    plt.hist(res, bins= 15 , density=True, alpha=0.7, color='skyblue', edgecolor='black')
+    plt.plot(xran, f_theor, c = 'r')
+    plt.xlabel('Generated X From Mixture Sampling')
+    plt.ylabel('Density')
+    plt.ylim(0, 1.2)
+    plt.title('(6c) Mixture Sampling by Composition Implementation')
+    plt.text(
+        x=0.95, y=0.95,
+
+        s=f'Number of samples: {N}',
+        transform=plt.gca().transAxes,
+        fontsize=10,
+        verticalalignment='top',
+        horizontalalignment='right',
+        bbox=dict(facecolor='white', edgecolor='gray', boxstyle='round,pad=0.3'))
+
+    plt.grid(True)
+    plt.savefig("hw2_p6.png")
+    plt.show()
